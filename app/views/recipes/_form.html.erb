@@ -1,0 +1,111 @@
+<%= form_with(model: @recipe, local: true) do |f| %>
+
+  <% if @recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this @recipe from being saved:</h2>
+      <ul>
+      <% @recipe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="field_section">
+          <strong><h5>レシピのメニュー</h5></strong>
+          <%= f.text_field :menu, :size=> "45", :placeholder=>"メニュー", :class=>"input_field" %>
+          <br>
+          <br>
+          <br>
+          <div class="field">
+            <strong><h5>メニューの写真をのせる</h5></strong>
+            <%= f.file_field :image %>
+            <%= f.hidden_field :image_cache %>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="field_section">
+          <strong><h5>材料（２人分）</h5></strong>
+          <table class="table table-striped table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>食材</th>
+                <th>分量</th>
+                <th>Action</th>
+              </tr>
+
+            </thead>
+            <tbody>
+              <tr>
+                <%= f.nested_fields_for :recipe_foodstuffs, wrapper_tag: :tr do |q| %>
+                  <td><%= q.text_field   :foodstuff, class: 'form-control' %></td>
+                  <td><%= q.text_field   :quantity, class: 'form-control' %></td>
+                  <td><%= q.remove_nested_fields_link 'Delete', class: 'btn btn-danger', role: 'button' %></td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
+          <%= f.add_nested_fields_link :recipe_foodstuffs, 'Add new', class: 'btn btn-primary', role: 'button' %>
+          <br>
+          <br>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="field_section">
+          <strong><h5>作業工程</h5></strong>
+          <table class="table table-striped table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>工程</th>
+                <th>画像</th>
+                <th>Action</th>
+              </tr>
+
+            </thead>
+            <tbody>
+              <tr>
+                <%= f.nested_fields_for :recipe_steps, wrapper_tag: :tr do |q| %>
+                  <td><%= q.text_field   :working_process, class: 'form-control' %></td>
+                  <td>
+                      <%= q.file_field :image %>
+                      <%= q.hidden_field :image_cache %></td>
+
+                  <td><%= q.remove_nested_fields_link 'Delete', class: 'btn btn-danger', role: 'button' %></td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
+          <%= f.add_nested_fields_link :recipe_steps, 'Add new', class: 'btn btn-primary', role: 'button' %>
+          <br>
+          <br>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <%= f.submit "レシピを公開する" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<br>
+<br>
+<br>
+<br>
+<br>

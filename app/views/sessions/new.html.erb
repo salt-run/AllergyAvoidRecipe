@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-4">
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-4">
+      <div class="sign_up_section">
+        <h1>Log in</h1>
+        <hr>
+        <%= form_with(scope: :session, url: sessions_path) do |f| %>
+
+          <div class="field">
+            <%= f.label :メールアドレス %><br>
+            <%= f.email_field :email, size: "30" %>
+          </div>
+          <br>
+
+          <div class="field">
+            <%= f.label :パスワード %><br>
+            <%= f.password_field :password, size: "30" %>
+          </div>
+          <br>
+
+          <div class="field">
+            <%= f.submit "Log in" %>
+          </div>
+          <br>
+          <br>
+
+        <% end %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-4">
+    </div>
+  </div>
+</div>

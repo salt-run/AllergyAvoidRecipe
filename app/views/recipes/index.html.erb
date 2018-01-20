@@ -1,0 +1,35 @@
+
+<div class="container">
+  <%= page_entries_info @recipes %><br><br>
+  <% get_index_recipe_id %>
+  <button><%= link_to "アレルギー食材を含んだレシピを除去" , recipes_path(ids: @recipes_id, not_allergy_search: true) %></button>
+  <br>
+  <br>
+  <% @recipes.each do |recipe| %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <div class="well">
+          <h4>
+            <a href="<%= recipe_path(recipe.id) %>"><%= recipe.menu %></a>
+          </h4>
+        　<a href="<%= recipe_path(recipe.id) %>"><%= image_tag recipe.image , alt: 'No Image' %></a>
+          <br>
+
+        　投稿者：<%= link_to recipe.user.name, user_path(recipe.user.id) %>&nbsp;&nbsp;
+          お気に入り：<%= recipe.favorite_count %> 件
+         <br>
+
+          <% if current_user.id == recipe.user_id %>
+            <%= link_to 'レシピを編集', edit_recipe_path(recipe.id) %> &nbsp;
+            <%= link_to 'レシピを削除', recipe_path(recipe.id), data: { confirm: '本当に削除していいですか？'}, method: :delete %><br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  <br>
+
+  <% end %>
+</div>
+
+<%= paginate @recipes %>

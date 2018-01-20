@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+
+      <h3><%= @recipe.menu %></h3>
+      <%= image_tag @recipe.image, alt: "No Image"%><br>
+
+      <% unless @recipe.user == current_user %>
+        <% if @favorite.present? %>
+          <%= link_to 'お気に入り解除', favorite_path(recipe_id: @recipe.id), method: :delete %>
+        <% else %>
+          <%= link_to 'お気に入りする', favorites_path(recipe_id: @recipe.id), method: :post %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <h3>材料</h3>
+      <table class="table table-striped table-bordered">
+        <tr>
+          <th>材料</th>
+          <th>分量</th>
+        </tr>
+        <% @recipe.recipe_foodstuffs.each do |recipe_foodstuff| %>
+          <tr>
+            <td><%= recipe_foodstuff.foodstuff %></td>
+            <td><%= recipe_foodstuff.quantity %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+    <br>
+    <br>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <h3>作成手順</h3>
+        <% count = 1 %>
+        <% @recipe.recipe_steps.each do |recipe_step| %>
+          <%= count %><br>
+          <%= image_tag recipe_step.image, alt: "No Image" %><br>
+          <%= recipe_step.working_process %>
+          <% count += 1 %>
+          <br><br>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

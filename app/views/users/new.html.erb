@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-4">
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-4">
+      <div class="sign_up_section">
+        <%= form_with(model: @user, local:true) do |f| %>
+          <h1>Sign up</h1>
+          <hr>
+
+          <% if @user.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@user.errors.count, "error") %> prohibited this @user from being saved:</h2>
+              <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="field">
+            <%= f.label :ユーザ名 %><br>
+            <%= f.text_field :name, size: "30" %>
+          </div>
+          <br>
+
+          <div class="field">
+            <%= f.label :メールアドレス %><br>
+            <%= f.email_field :email, size: "30"  %>
+          </div>
+          <br>
+
+          <div class="field">
+            <%= f.label :パスワード %><br>
+            <%= f.password_field :password, size: "30"  %>
+          </div>
+          <br>
+
+          <div class="field">
+            <%= f.label :パスワードの確認 %><br>
+            <%= f.password_field :password_confirmation, size: "30"  %>
+          </div>
+          <br>
+
+          <div class="field">
+            <%= f.submit "Create my Account" %>
+          </div>
+          <br>
+          <br>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
