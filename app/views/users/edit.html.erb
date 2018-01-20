@@ -1,5 +1,17 @@
 <%= form_with(model: @user, local: true) do |f| %>
   <div class="container">
+
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this @user from being saved:</h2>
+        <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="row">
       <h3>ユーザ情報を更新する</h3>
       <%= f.submit "更新する" %>
@@ -8,16 +20,6 @@
       <div class="col-xs-12 col-sm-4 col-md-4">
         <div class="field_section">
 
-          <% if @user.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@user.errors.count, "error") %> prohibited this @user from being saved:</h2>
-              <ul>
-              <% @user.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-              </ul>
-            </div>
-          <% end %>
 
 
           <div class="field">
@@ -44,7 +46,7 @@
 
       <div class="col-xs-12 col-sm-7 col-md-7">
         <div class="field_section">
-          <strong><h4>アレルギー食材</h4></strong>
+          <strong><h3>アレルギー食材</h3></strong>
           <table class="table table-striped table-bordered table-hover">
             <thead>
               <tr>
