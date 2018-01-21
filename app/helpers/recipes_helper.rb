@@ -4,7 +4,7 @@ module RecipesHelper
   def get_index_recipe_id
     #unless @recipes_id.nil?
       @recipes_id = []
-      @recipes.each do |recipe|
+      @recipes_all.each do |recipe|
         @recipes_id << recipe.id
       end
     #end

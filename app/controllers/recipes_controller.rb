@@ -15,6 +15,7 @@ class RecipesController < ApplicationController
       #コードを簡略化できないか検討が必要 end ---
 
       @recipes = Recipe.search(params[:search]).page(params[:page])
+      @recipes_all = Recipe.search(params[:search])
       #@recipes = Recipe.search(params[:search], allergy_food).page(params[:page])
 
     elsif params[:not_allergy_search]
@@ -39,19 +40,22 @@ class RecipesController < ApplicationController
        end
      end
 
-     if recipe_exclusion_id.nil?
+     if recipe_exclusion_id.blank?
        @recipes = recipes.page(params[:page])
      else
        @recipes = recipes.where.not(id: recipe_exclusion_id).page(params[:page])
      end
+     @recipes_all = Recipe.search(params[:search])
 
     elsif params[:my_recipe]
       @recipes = Recipe.where(user_id: params[:id]).page(params[:page])
-    elsif
+      @recipes_all = Recipe.where(user_id: params[:id])
+    elsif params[:ranking_recipe]
       @recipes = Recipe.order("favorite_count DESC").limit(100).page(params[:page])
+      @recipes_all = Recipe.order("favorite_count DESC").limit(100)
     else
       @recipes = Recipe.page(params[:page])
-
+      @recipes_all = Recipe.all
     end
   end
 
